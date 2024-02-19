@@ -15,8 +15,11 @@ SHOW DATABASES;
 
 -- create table sql
 CREATE TABLE users(
-    id int PRIMARY KEY AUTO_INCREMENT,
-    name varchar(255) NOT NULL UNIQUE
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    age INT NULL,
+    role_id INT NOT NULL,
+    FOREIGN KEY(role_id) REFERENCES roles(id)
 );
 
 -- update table name
@@ -90,3 +93,30 @@ SELECT * FROM users WHERE lname LIKE 's__ag%';
 
 --* IN Operator
 -- SELECT * FROM users WHERE IN age (5);
+
+--! sql join 
+
+--* INNER JOIN
+SELECT users.name, users.age, roles.name, roles.status
+FROM users
+INNER JOIN roles ON roles.id = users.role_id;
+
+--* left JOIN
+SELECT users.name, users.age, roles.name, roles.status
+FROM roles
+LEFT JOIN users ON roles.id = users.role_id;
+
+--* right JOIN
+SELECT users.name, users.age, roles.name, roles.status
+FROM roles
+RIGHT JOIN users ON roles.id = users.role_id;
+
+
+--* Full JOIN [not incomplete]
+-- SELECT *
+-- FROM users
+-- FULL JOIN roles ON roles.id = users.role_id
+
+-- ;
+
+--* self join [not incomplete]
